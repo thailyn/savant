@@ -13,6 +13,7 @@ int main()
   else
   {
     std::cout << "Result is bad." << std::endl;
+    return 0;
   }
 
   return 0;
