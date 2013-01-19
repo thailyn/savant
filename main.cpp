@@ -5,6 +5,8 @@
 
 int main()
 {
+  bool print = false;
+
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file("library.xml");
 
@@ -26,23 +28,26 @@ int main()
 
     Song song = create_from_iTunes_node(song_node);
 
-    std::string stars = "";
-    for (int j = 0; j < 5; j++)
+    if (print)
     {
-      if (j < song.rating / 20)
+      std::string stars = "";
+      for (int j = 0; j < 5; j++)
       {
-        stars = stars + "*";
+        if (j < song.rating / 20)
+        {
+          stars = stars + "*";
+        }
+        else
+        {
+          stars = stars + " ";
+        }
       }
-      else
-      {
-        stars = stars + " ";
-      }
-    }
 
-    std::cout << i << ": (" << song.id << ") (" << stars << ") " << song.title << " - " << song.artist << " - " << song.album << std::endl;
-    std::cout << "rating: " << song.rating << ", album rating: " << song.album_rating << ", computed: " << song.album_rating_computed << std::endl;
-    std::cout << "file: " << song.file_name << std::endl;
-    std::cout << std::endl;
+      std::cout << i << ": (" << song.id << ") (" << stars << ") " << song.title << " - " << song.artist << " - " << song.album << std::endl;
+      std::cout << "rating: " << song.rating << ", album rating: " << song.album_rating << ", computed: " << song.album_rating_computed << std::endl;
+      std::cout << "file: " << song.file_name << std::endl;
+      std::cout << std::endl;
+    }
   }
 
   return 0;
