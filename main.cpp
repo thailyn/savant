@@ -2,9 +2,28 @@
 #include <vector>
 #include <random>
 #include <ctime>
+#include <fstream>
 
 #include "pugixml/pugixml.hpp"
 #include "song.hpp"
+
+void write_playlist_to_m3u_file(std::vector<Song> playlist)
+{
+  std::string file_name = "playlist.m3u";
+
+  std::ofstream fout(file_name, std::ofstream::out | std::ofstream::trunc);
+
+  // print file header
+  fout << "#EXTM3U" << std::endl;
+
+  // print each playlist item
+  for (std::vector<Song>::size_type i = 0; i < playlist.size(); i++)
+  {
+    fout << playlist[i].file_name << std::endl;
+  }
+
+  fout.close();
+}
 
 int main()
 {
@@ -132,6 +151,8 @@ int main()
                 << playlist[j].title << " - " << playlist[j].artist << " - "
                 << playlist[j].album << std::endl;
   }
+
+  write_playlist_to_m3u_file(playlist);
 
   return 0;
 }
