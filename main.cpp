@@ -90,7 +90,8 @@ int main()
         stars = stars + " ";
       }
     }
-    std::cout << i << ": (" << id << ") " << title << " - " << artist << " - " << album << std::endl;
+
+    std::cout << i << ": (" << id << ") (" << stars << ") " << title << " - " << artist << " - " << album << std::endl;
     std::cout << "rating: " << rating << ", album rating: " << album_rating << ", computed: " << album_rating_computed << std::endl;
     std::cout << "file: " << file_name << std::endl;
     std::cout << std::endl;
