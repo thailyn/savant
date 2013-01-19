@@ -7,7 +7,7 @@
 class Song
 {
 public:
-  Song() = default;
+  Song();
 
   int id;
   std::string title;
