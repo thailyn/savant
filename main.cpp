@@ -113,5 +113,25 @@ int main()
     playlist.push_back(song_dist[value]);
   }
 
+  for (std::vector<Song>::size_type j = 0; j < playlist.size(); j++)
+  {
+      std::string stars = "";
+      for (int k = 0; k < 5; k++)
+      {
+        if (k < playlist[j].rating / 20)
+        {
+          stars = stars + "*";
+        }
+        else
+        {
+          stars = stars + " ";
+        }
+      }
+
+      std::cout << j << ": (" << playlist[j].id << ") (" << stars << ") "
+                << playlist[j].title << " - " << playlist[j].artist << " - "
+                << playlist[j].album << std::endl;
+  }
+
   return 0;
 }
