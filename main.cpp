@@ -27,6 +27,7 @@ int main()
     std::string title = "";
     std::string artist = "";
     std::string album = "";
+    std::string file_name = "";
 
     int rating = -1;
     int album_rating = -1;
@@ -70,9 +71,15 @@ int main()
         pugi::xml_node value = key.next_sibling("true");
         album_rating_computed = value;
       }
+      else if (strcmp(key.child_value(), "Location") == 0)
+      {
+        pugi::xml_node value = key.next_sibling("string");
+        file_name = value.child_value();
+      }
     }
     std::cout << i << ": (" << id << ") " << title << " - " << artist << " - " << album << std::endl;
     std::cout << "rating: " << rating << ", album rating: " << album_rating << ", computed: " << album_rating_computed << std::endl;
+    std::cout << "file: " << file_name << std::endl;
   }
 
   return 0;
