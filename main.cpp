@@ -8,11 +8,11 @@ int main()
 
   if (result)
   {
-    std::cout << "Result is good!" << std::endl;
+    std::cout << "Successfully loaded file." << std::endl;
   }
   else
   {
-    std::cout << "Result is bad." << std::endl;
+    std::cout << "Failed to load file.  Quitting." << std::endl;
     return 0;
   }
 
