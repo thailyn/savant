@@ -29,8 +29,8 @@ int main()
     std::string album = "";
     std::string file_name = "";
 
-    int rating = -1;
-    int album_rating = -1;
+    int rating = 0;
+    int album_rating = 0;
     bool album_rating_computed = false;
 
     for (pugi::xml_node key = song.child("key"); key; key = key.next_sibling("key"))
