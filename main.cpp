@@ -72,5 +72,31 @@ int main()
 
   std::cout << "dist list size: " << song_dist.size() << std::endl;
 
+  if (print)
+  {
+    for (std::vector<Song>::size_type j = 0; j < song_dist.size(); j++)
+    {
+      std::string stars = "";
+      for (int k = 0; k < 5; k++)
+      {
+        if (k < song_dist[j].rating / 20)
+        {
+          stars = stars + "*";
+        }
+        else
+        {
+          stars = stars + " ";
+        }
+      }
+
+      std::cout << j << ": (" << song_dist[j].id << ") (" << stars << ") "
+                << song_dist[j].title << " - " << song_dist[j].artist << " - "
+                << song_dist[j].album << std::endl;
+      std::cout << "rating: " << song_dist[j].rating << ", album rating: "
+                << song_dist[j].album_rating << ", computed: "
+                << song_dist[j].album_rating_computed << std::endl;
+    }
+  }
+
   return 0;
 }
