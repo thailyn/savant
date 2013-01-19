@@ -21,6 +21,7 @@ int main()
     return 1;
   }
 
+  // parse the library input file and create the song list
   int i = 0;
   std::vector<Song> song_list;
   pugi::xml_node songs = doc.child("plist").child("dict").child("dict");
@@ -55,6 +56,7 @@ int main()
 
   std::cout << "Finished parsing library file.  Found " << i << " songs." << std::endl;
 
+  // create the song distribution list
   std::vector<Song> song_dist;
   for (std::vector<Song>::size_type j = 0; j < song_list.size(); j++)
   {
@@ -72,6 +74,7 @@ int main()
 
   std::cout << "dist list size: " << song_dist.size() << std::endl;
 
+  // print out the distribution list
   if (print)
   {
     for (std::vector<Song>::size_type j = 0; j < song_dist.size(); j++)
