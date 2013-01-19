@@ -55,5 +55,20 @@ int main()
 
   std::cout << "Finished parsing library file.  Found " << i << " songs." << std::endl;
 
+  std::vector<Song> song_dist;
+  for (std::vector<Song>::size_type j = 0; j < song_list.size(); j++)
+  {
+    int song_rating = song_list[j].rating;
+
+    // always include a song once
+    song_dist.push_back(song_list[j]);
+
+    // include the song an extra time for each "star"
+    for (int k = 0; k < song_rating / 20; k++)
+    {
+      song_dist.push_back(song_list[j]);
+    }
+  }
+
   return 0;
 }
