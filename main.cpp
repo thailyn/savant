@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "pugixml/pugixml.hpp"
 #include "song.hpp"
