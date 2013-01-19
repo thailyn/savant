@@ -22,7 +22,6 @@ int main()
   for (pugi::xml_node song = songs.child("dict"); song; song = song.next_sibling("dict"))
   {
     i++;
-    std::cout << i << ": Song: ";
     std::string title = "";
     std::string artist = "";
     for (pugi::xml_node key = song.child("key"); key; key = key.next_sibling("key"))
@@ -32,17 +31,14 @@ int main()
       {
         pugi::xml_node value = key.next_sibling("string");
         title = value.child_value();
-        std::cout << value.child_value() << " - ";
       }
       else if (strcmp(key.child_value(), "Artist") == 0)
       {
         pugi::xml_node value = key.next_sibling("string");
         artist = value.child_value();
-        std::cout << value.child_value();
       }
     }
-    std::cout << std::endl;
-    //std::cout << "*Song: " << title << " - " << artist << std::endl;
+    std::cout << i << ": " << title << " - " << artist << std::endl;
   }
 
   return 0;
