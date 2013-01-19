@@ -23,12 +23,18 @@ int main()
   for (pugi::xml_node song = songs.child("dict"); song; song = song.next_sibling("dict"))
   {
     i++;
+    int id = 0;
     std::string title = "";
     std::string artist = "";
     for (pugi::xml_node key = song.child("key"); key; key = key.next_sibling("key"))
     {
       std::string keyText = key.child_value();
-      if (strcmp(key.child_value(), "Name") == 0)
+      if (strcmp(key.child_value(), "Track ID") == 0)
+      {
+        pugi::xml_node value = key.next_sibling("integer");
+        id = atoi(value.child_value());
+      }
+      else if (strcmp(key.child_value(), "Name") == 0)
       {
         pugi::xml_node value = key.next_sibling("string");
         title = value.child_value();
@@ -39,7 +45,7 @@ int main()
         artist = value.child_value();
       }
     }
-    std::cout << i << ": " << title << " - " << artist << std::endl;
+    std::cout << i << ": (" << id << ") " << title << " - " << artist << std::endl;
   }
 
   return 0;
