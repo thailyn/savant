@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
 
 #include "pugixml/pugixml.hpp"
 #include "song.hpp"
@@ -99,6 +101,16 @@ int main()
                 << song_dist[j].album_rating << ", computed: "
                 << song_dist[j].album_rating_computed << std::endl;
     }
+  }
+
+  unsigned playlist_size = 25;
+  std::vector<Song> playlist;
+  std::default_random_engine e(time(0));
+  std::uniform_int_distribution<unsigned> u(0, song_dist.size());
+  for (std::vector<Song>::size_type j = 0; j < playlist_size; j++)
+  {
+    unsigned value = u(e);
+    playlist.push_back(song_dist[value]);
   }
 
   return 0;
