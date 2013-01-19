@@ -13,7 +13,7 @@ int main()
   else
   {
     std::cout << "Failed to load file.  Quitting." << std::endl;
-    return 0;
+    return 1;
   }
 
   return 0;
