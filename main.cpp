@@ -77,6 +77,19 @@ int main()
         file_name = value.child_value();
       }
     }
+
+    std::string stars = "";
+    for (int j = 0; j < 5; j++)
+    {
+      if (j < rating / 20)
+      {
+        stars = stars + "*";
+      }
+      else
+      {
+        stars = stars + " ";
+      }
+    }
     std::cout << i << ": (" << id << ") " << title << " - " << artist << " - " << album << std::endl;
     std::cout << "rating: " << rating << ", album rating: " << album_rating << ", computed: " << album_rating_computed << std::endl;
     std::cout << "file: " << file_name << std::endl;
