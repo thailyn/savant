@@ -27,20 +27,17 @@ int main()
     std::string artist = "";
     for (pugi::xml_node key = song.child("key"); key; key = key.next_sibling("key"))
     {
-      //std::cout << "Song: ";
       std::string keyText = key.child_value();
       if (strcmp(key.child_value(), "Name") == 0)
       {
         pugi::xml_node value = key.next_sibling("string");
         title = value.child_value();
-        //std::cout << value.text() << " - ";
         std::cout << value.child_value() << " - ";
       }
       else if (strcmp(key.child_value(), "Artist") == 0)
       {
         pugi::xml_node value = key.next_sibling("string");
         artist = value.child_value();
-        //std::cout << value.text();
         std::cout << value.child_value();
       }
     }
