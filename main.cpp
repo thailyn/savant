@@ -70,5 +70,7 @@ int main()
     }
   }
 
+  std::cout << "dist list size: " << song_dist.size() << std::endl;
+
   return 0;
 }
