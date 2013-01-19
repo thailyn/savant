@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "pugixml/pugixml.hpp"
+#include "song.hpp"
 
 int main()
 {
@@ -20,68 +21,16 @@ int main()
 
   int i = 0;
   pugi::xml_node songs = doc.child("plist").child("dict").child("dict");
-  for (pugi::xml_node song = songs.child("dict"); song; song = song.next_sibling("dict"))
+  for (pugi::xml_node song_node = songs.child("dict"); song_node; song_node = song_node.next_sibling("dict"))
   {
     i++;
-    int id = 0;
-    std::string title = "";
-    std::string artist = "";
-    std::string album = "";
-    std::string file_name = "";
 
-    int rating = 0;
-    int album_rating = 0;
-    bool album_rating_computed = false;
-
-    for (pugi::xml_node key = song.child("key"); key; key = key.next_sibling("key"))
-    {
-      std::string keyText = key.child_value();
-      if (strcmp(key.child_value(), "Track ID") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("integer");
-        id = atoi(value.child_value());
-      }
-      else if (strcmp(key.child_value(), "Name") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("string");
-        title = value.child_value();
-      }
-      else if (strcmp(key.child_value(), "Artist") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("string");
-        artist = value.child_value();
-      }
-      else if (strcmp(key.child_value(), "Album") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("string");
-        album = value.child_value();
-      }
-      else if (strcmp(key.child_value(), "Rating") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("integer");
-        rating = atoi(value.child_value());
-      }
-      else if (strcmp(key.child_value(), "Album Rating") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("integer");
-        album_rating = atoi(value.child_value());
-      }
-      else if (strcmp(key.child_value(), "Album Rating Computed") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("true");
-        album_rating_computed = value;
-      }
-      else if (strcmp(key.child_value(), "Location") == 0)
-      {
-        pugi::xml_node value = key.next_sibling("string");
-        file_name = value.child_value();
-      }
-    }
+    Song song = create_from_iTunes_node(song_node);
 
     std::string stars = "";
     for (int j = 0; j < 5; j++)
     {
-      if (j < rating / 20)
+      if (j < song.rating / 20)
       {
         stars = stars + "*";
       }
@@ -91,9 +40,9 @@ int main()
       }
     }
 
-    std::cout << i << ": (" << id << ") (" << stars << ") " << title << " - " << artist << " - " << album << std::endl;
-    std::cout << "rating: " << rating << ", album rating: " << album_rating << ", computed: " << album_rating_computed << std::endl;
-    std::cout << "file: " << file_name << std::endl;
+    std::cout << i << ": (" << song.id << ") (" << stars << ") " << song.title << " - " << song.artist << " - " << song.album << std::endl;
+    std::cout << "rating: " << song.rating << ", album rating: " << song.album_rating << ", computed: " << song.album_rating_computed << std::endl;
+    std::cout << "file: " << song.file_name << std::endl;
     std::cout << std::endl;
   }
 
