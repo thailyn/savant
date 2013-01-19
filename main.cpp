@@ -50,5 +50,7 @@ int main()
     }
   }
 
+  std::cout << "Finished parsing library file.  Found " << i << " songs." << std::endl;
+
   return 0;
 }
