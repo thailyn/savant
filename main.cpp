@@ -4,7 +4,7 @@
 int main()
 {
   pugi::xml_document doc;
-  pugi::xml_parse_result result = doc.load("library.xml");
+  pugi::xml_parse_result result = doc.load_file("library.xml");
 
   if (result)
   {
