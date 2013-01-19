@@ -1,6 +1,5 @@
 #include <iostream>
-#include <string.h>
-#include <stdlib.h>
+
 #include "pugixml/pugixml.hpp"
 #include "song.hpp"
 
