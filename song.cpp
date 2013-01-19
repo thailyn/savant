@@ -3,6 +3,11 @@
 
 #include "song.hpp"
 
+Song::Song()
+  : id(-1), rating(0), album_rating(0), album_rating_computed(false)
+{
+}
+
 Song create_from_iTunes_node(const pugi::xml_node song_node)
 {
   Song song;
