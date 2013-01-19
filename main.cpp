@@ -16,5 +16,13 @@ int main()
     return 1;
   }
 
+  int i = 0;
+  pugi::xml_node songs = doc.child("plist").child("dict").child("dict");
+  for (pugi::xml_node song = songs.child("dict"); song; song = song.next_sibling("dict"))
+  {
+    i++;
+    std::cout << i << ": Song: " << song.child_value("key") << std::endl;
+  }
+
   return 0;
 }
