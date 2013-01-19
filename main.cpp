@@ -22,12 +22,14 @@ int main()
   }
 
   int i = 0;
+  std::vector<Song> song_list;
   pugi::xml_node songs = doc.child("plist").child("dict").child("dict");
   for (pugi::xml_node song_node = songs.child("dict"); song_node; song_node = song_node.next_sibling("dict"))
   {
     i++;
 
     Song song = create_from_iTunes_node(song_node);
+    song_list.push_back(song);
 
     if (print)
     {
