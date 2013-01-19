@@ -26,6 +26,11 @@ int main()
     int id = 0;
     std::string title = "";
     std::string artist = "";
+
+    int rating = -1;
+    int album_rating = -1;
+    bool album_rating_computed = false;
+
     for (pugi::xml_node key = song.child("key"); key; key = key.next_sibling("key"))
     {
       std::string keyText = key.child_value();
@@ -44,8 +49,24 @@ int main()
         pugi::xml_node value = key.next_sibling("string");
         artist = value.child_value();
       }
+      else if (strcmp(key.child_value(), "Rating") == 0)
+      {
+        pugi::xml_node value = key.next_sibling("integer");
+        rating = atoi(value.child_value());
+      }
+      else if (strcmp(key.child_value(), "Album Rating") == 0)
+      {
+        pugi::xml_node value = key.next_sibling("integer");
+        album_rating = atoi(value.child_value());
+      }
+      else if (strcmp(key.child_value(), "Album Rating Computed") == 0)
+      {
+        pugi::xml_node value = key.next_sibling("true");
+        album_rating_computed = value;
+      }
     }
     std::cout << i << ": (" << id << ") " << title << " - " << artist << std::endl;
+    std::cout << "rating: " << rating << ", album rating: " << album_rating << ", computed: " << album_rating_computed << std::endl;
   }
 
   return 0;
