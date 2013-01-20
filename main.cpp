@@ -6,6 +6,7 @@
 
 #include "pugixml/pugixml.hpp"
 #include "song.hpp"
+#include "playlist.hpp"
 
 void write_playlist_to_m3u_file(std::vector<Song> playlist)
 {
@@ -71,6 +72,30 @@ int main()
       std::cout << i << ": (" << song.id << ") (" << stars << ") " << song.title << " - " << song.artist << " - " << song.album << std::endl;
       std::cout << "rating: " << song.rating << ", album rating: " << song.album_rating << ", computed: " << song.album_rating_computed << std::endl;
       std::cout << "file: " << song.file_name << std::endl;
+      std::cout << std::endl;
+    }
+  }
+
+  i = 0;
+  std::vector<playlist> playlist_list;
+  pugi::xml_node playlists = doc.child("plist").child("dict").child("array");
+  for (pugi::xml_node playlist_node = playlists.child("dict"); playlist_node;
+       playlist_node = playlist_node.next_sibling("dict"))
+  {
+    i++;
+
+    playlist playlist = create_playlist_from_iTunes_node(playlist_node, song_list);
+    playlist_list.push_back(playlist);
+
+    if (print)
+    {
+      std::cout << i << ": (" << playlist.id << ") " << playlist.name << " - " << playlist.persistent_id << std::endl;
+      for (std::vector<Song>::size_type j = 0; j < playlist.songs.size(); j++)
+      {
+        std::cout << j << ": (" << playlist.songs[j].id << ") (" << playlist.songs[j].rating << ") "
+                  << playlist.songs[j].title << " - " << playlist.songs[j].artist << " - "
+                  << playlist.songs[j].album << std::endl;
+      }
       std::cout << std::endl;
     }
   }
