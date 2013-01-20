@@ -100,7 +100,8 @@ int main()
     }
   }
 
-  std::cout << "Finished parsing library file.  Found " << i << " songs." << std::endl;
+  std::cout << "Finished parsing library file.  Found " << song_list.size()
+            << " songs and " << playlist_list.size() << " playlists." << std::endl;
 
   // create the song distribution list
   std::vector<Song> song_dist;
