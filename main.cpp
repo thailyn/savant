@@ -124,17 +124,17 @@ int main()
 
   // create the song distribution list
   std::vector<Song> song_dist;
-  for (std::vector<Song>::size_type j = 0; j < song_list.size(); j++)
+  for (std::vector<Song>::size_type j = 0; j < selected_playlist.songs.size(); j++)
   {
-    int song_rating = song_list[j].rating;
+    int song_rating = selected_playlist.songs[j].rating;
 
     // always include a song once
-    song_dist.push_back(song_list[j]);
+    song_dist.push_back(selected_playlist.songs[j]);
 
     // include the song an extra time for each "star"
     for (int k = 0; k < song_rating / 20; k++)
     {
-      song_dist.push_back(song_list[j]);
+      song_dist.push_back(selected_playlist.songs[j]);
     }
   }
 
