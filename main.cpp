@@ -138,7 +138,7 @@ int main()
     }
   }
 
-  std::cout << "dist list size: " << song_dist.size() << std::endl;
+  std::cout << "Distributed list size: " << song_dist.size() << std::endl;
 
   // print out the distribution list
   if (print)
