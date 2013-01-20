@@ -103,6 +103,25 @@ int main()
   std::cout << "Finished parsing library file.  Found " << song_list.size()
             << " songs and " << playlist_list.size() << " playlists." << std::endl;
 
+  std::string playlist_name = "Music";
+  playlist selected_playlist;
+  for (std::vector<playlist>::size_type j = 0; j < playlist_list.size(); j++)
+  {
+    if (playlist_list[j].name == playlist_name)
+    {
+      selected_playlist = playlist_list[j];
+      break;
+    }
+  }
+  if (selected_playlist.name != playlist_name)
+  {
+    std::cout << "Could not find iTunes playlist " << playlist_name << " to create playlist.  Quitting." << std::endl;
+    return 2;
+  }
+
+  std::cout << "Using iTunes playlist " << playlist_name << " to create playlist.  Contains "
+            << selected_playlist.songs.size() << " songs." << std::endl;
+
   // create the song distribution list
   std::vector<Song> song_dist;
   for (std::vector<Song>::size_type j = 0; j < song_list.size(); j++)
