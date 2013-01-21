@@ -210,13 +210,48 @@ int main(int argc, char* argv[])
   {
     int song_rating = selected_playlist.songs[j].rating;
 
-    // always include a song once
-    song_dist.push_back(selected_playlist.songs[j]);
-
-    // include the song an extra time for each "star"
-    for (int k = 0; k < song_rating / 20; k++)
+    if (rating_weight_scheme == "linear")
     {
+      // always include a song once
       song_dist.push_back(selected_playlist.songs[j]);
+
+      // include the song an extra time for each "star"
+      for (int k = 0; k < song_rating / 20; k++)
+      {
+        song_dist.push_back(selected_playlist.songs[j]);
+      }
+    }
+    else if (rating_weight_scheme == "iTunes")
+    {
+      int include_count = 0;
+      int num_stars = song_rating / 20;
+
+      switch (num_stars)
+      {
+      case 0:
+        include_count = 4;
+        break;
+      case 1:
+        include_count = 12;
+        break;
+      case 2:
+        include_count = 15;
+        break;
+      case 3:
+        include_count = 19;
+        break;
+      case 4:
+        include_count = 23;
+        break;
+      case 5:
+        include_count = 27;
+        break;
+      }
+
+      for (int k = 0; k < include_count; k++)
+      {
+        song_dist.push_back(selected_playlist.songs[j]);
+      }
     }
   }
 
