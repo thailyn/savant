@@ -36,6 +36,11 @@ Song create_from_iTunes_node(const pugi::xml_node song_node)
       pugi::xml_node value = key.next_sibling("string");
       song.album = value.child_value();
     }
+    else if (strcmp(key.child_value(), "Play Count") == 0)
+    {
+      pugi::xml_node value = key.next_sibling("integer");
+      song.play_count = atoi(value.child_value());
+    }
     else if (strcmp(key.child_value(), "Rating") == 0)
     {
       pugi::xml_node value = key.next_sibling("integer");
