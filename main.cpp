@@ -114,20 +114,22 @@ int main(int argc, char* argv[])
   std::cout << "Rating weighting scheme: " << rating_weight_scheme << std::endl;
   std::cout << std::endl;
 
+  std::cout << "Loading input library file... ";
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file(input_file_name.c_str());
 
   if (result)
   {
-    std::cout << "Successfully loaded file." << std::endl;
+    std::cout << "done." << std::endl;
   }
   else
   {
-    std::cout << "Failed to load file.  Quitting." << std::endl;
+    std::cout << "failed.  Quitting." << std::endl;
     return 1;
   }
 
   // parse the library input file and create the song list
+  std::cout << "Parsing songs from library file... ";
   int i = 0;
   std::vector<Song> song_list;
   pugi::xml_node songs = doc.child("plist").child("dict").child("dict");
@@ -159,7 +161,9 @@ int main(int argc, char* argv[])
       std::cout << std::endl;
     }
   }
+  std::cout << "done.  Found " << song_list.size() << " songs." << std::endl;
 
+  std::cout << "Parsing playlists from library file... ";
   i = 0;
   std::vector<playlist> playlist_list;
   pugi::xml_node playlists = doc.child("plist").child("dict").child("array");
@@ -183,9 +187,7 @@ int main(int argc, char* argv[])
       std::cout << std::endl;
     }
   }
-
-  std::cout << "Finished parsing library file.  Found " << song_list.size()
-            << " songs and " << playlist_list.size() << " playlists." << std::endl;
+  std::cout << "done.  Found " << playlist_list.size() << " playlists." << std::endl;
 
   playlist selected_playlist;
   for (std::vector<playlist>::size_type j = 0; j < playlist_list.size(); j++)
