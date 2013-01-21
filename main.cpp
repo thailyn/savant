@@ -28,6 +28,8 @@ po::variables_map parse_command_line(int argc, char* argv[])
      "iTunes playlist to pick songs from")
     ("output,o", po::value<std::string>()->default_value("playlist.m3u"),
      "output file name")
+    ("playlist-size,n", po::value<unsigned>()->default_value(25),
+     "number of tracks to add to output playlist")
     ("rating-weight", po::value<std::string>()->default_value("linear"),
      "weighting scheme for song rating");
 
@@ -62,6 +64,7 @@ void write_playlist_to_m3u_file(std::vector<Song> playlist, std::string file_nam
 int main(int argc, char* argv[])
 {
   bool print = false;
+  unsigned output_playlist_size = 0;
   std::string input_file_name = "";
   std::string iTunes_playlist_name = "";
   std::string output_file_name = "";
@@ -100,6 +103,11 @@ int main(int argc, char* argv[])
   {
     std::cout << "Error: intput file name must be provided.  Quitting." << std::endl;
     return 3;
+  }
+  if (vm.count("playlist-size"))
+  {
+    output_playlist_size = vm["playlist-size"].as<unsigned>();
+    std::cout << "Output playlist size: " << output_playlist_size << std::endl;
   }
   if (vm.count("rating-weight"))
   {
