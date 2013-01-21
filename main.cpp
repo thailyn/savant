@@ -26,7 +26,7 @@ void write_playlist_to_m3u_file(std::vector<Song> playlist)
   fout.close();
 }
 
-int main()
+int main(int argc, char* argv[])
 {
   bool print = false;
 
