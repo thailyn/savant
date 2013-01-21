@@ -295,11 +295,10 @@ int main(int argc, char* argv[])
     }
   }
 
-  unsigned playlist_size = 25;
   std::vector<Song> playlist;
   std::default_random_engine e(time(0));
   std::uniform_int_distribution<unsigned> u(0, song_dist.size());
-  for (std::vector<Song>::size_type j = 0; j < playlist_size; j++)
+  for (std::vector<Song>::size_type j = 0; j < output_playlist_size; j++)
   {
     unsigned value = u(e);
     playlist.push_back(song_dist[value]);
