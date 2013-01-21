@@ -4,7 +4,7 @@
 #include "song.hpp"
 
 Song::Song()
-  : id(-1), rating(0), album_rating(0), album_rating_computed(false)
+  : id(-1), rating(0), album_rating(0), album_rating_computed(false), play_count(0)
 {
 }
 

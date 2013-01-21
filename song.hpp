@@ -18,6 +18,7 @@ public:
   int rating;
   int album_rating;
   bool album_rating_computed;
+  int play_count;
 
   std::string file_name;
 };
