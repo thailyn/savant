@@ -61,6 +61,33 @@ void write_playlist_to_m3u_file(std::vector<Song> playlist)
 int main(int argc, char* argv[])
 {
   bool print = false;
+  std::string iTunes_playlist_name = "";
+  std::string output_file_name = "";
+
+  po::variables_map vm;
+  vm = parse_command_line(argc, argv);
+
+  if (vm.count("help"))
+  {
+    // already printed the help information in parse_command_line
+    return 0;
+  }
+
+  if (vm.count("verbose"))
+  {
+    std::cout << "Using verbose output." << std::endl;
+    print = true;
+  }
+  if (vm.count("playlist"))
+  {
+    std::cout << "iTunes playlist: " << vm["playlist"].as<std::string>() << std::endl;
+    iTunes_playlist_name = vm["playlist"].as<std::string>();
+  }
+  if (vm.count("output"))
+  {
+    std::cout << "Output playlist file name: " << vm["output"].as<std::string>() << std::endl;
+    output_file_name = vm["output"].as<std::string>();
+  }
 
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file("library.xml");
