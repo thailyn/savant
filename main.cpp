@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
   if (vm.count("input"))
   {
     input_file_name = vm["input"].as<std::string>();
-    std::cout << "Using input file " << input_file_name << std::endl;
+    std::cout << "Input file: " << input_file_name << std::endl;
   }
   else
   {
@@ -111,7 +111,8 @@ int main(int argc, char* argv[])
       return 4;
     }
   }
-  std::cout << "Using rating weighting scheme '" << rating_weight_scheme << "'." << std::endl;
+  std::cout << "Rating weighting scheme: " << rating_weight_scheme << std::endl;
+  std::cout << std::endl;
 
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file(input_file_name.c_str());
