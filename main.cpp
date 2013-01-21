@@ -5,8 +5,13 @@
 #include <fstream>
 
 #include "pugixml/pugixml.hpp"
+#include "boost/program_options/options_description.hpp"
+#include "boost/program_options/parsers.hpp"
+#include "boost/program_options/variables_map.hpp"
 #include "song.hpp"
 #include "playlist.hpp"
+
+namespace po = boost::program_options;
 
 void write_playlist_to_m3u_file(std::vector<Song> playlist)
 {
