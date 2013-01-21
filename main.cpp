@@ -41,10 +41,8 @@ po::variables_map parse_command_line(int argc, char* argv[])
   return vm;
 }
 
-void write_playlist_to_m3u_file(std::vector<Song> playlist)
+void write_playlist_to_m3u_file(std::vector<Song> playlist, std::string file_name)
 {
-  std::string file_name = "playlist.m3u";
-
   std::ofstream fout(file_name, std::ofstream::out | std::ofstream::trunc);
 
   // print file header
@@ -102,7 +100,7 @@ int main(int argc, char* argv[])
   }
 
   pugi::xml_document doc;
-  pugi::xml_parse_result result = doc.load_file("library.xml");
+  pugi::xml_parse_result result = doc.load_file(input_file_name.c_str());
 
   if (result)
   {
@@ -174,23 +172,22 @@ int main(int argc, char* argv[])
   std::cout << "Finished parsing library file.  Found " << song_list.size()
             << " songs and " << playlist_list.size() << " playlists." << std::endl;
 
-  std::string playlist_name = "Music";
   playlist selected_playlist;
   for (std::vector<playlist>::size_type j = 0; j < playlist_list.size(); j++)
   {
-    if (playlist_list[j].name == playlist_name)
+    if (playlist_list[j].name == iTunes_playlist_name)
     {
       selected_playlist = playlist_list[j];
       break;
     }
   }
-  if (selected_playlist.name != playlist_name)
+  if (selected_playlist.name != iTunes_playlist_name)
   {
-    std::cout << "Could not find iTunes playlist " << playlist_name << " to create playlist.  Quitting." << std::endl;
+    std::cout << "Could not find iTunes playlist " << iTunes_playlist_name << " to create playlist.  Quitting." << std::endl;
     return 2;
   }
 
-  std::cout << "Using iTunes playlist " << playlist_name << " to create playlist.  Contains "
+  std::cout << "Using iTunes playlist " << iTunes_playlist_name << " to create playlist.  Contains "
             << selected_playlist.songs.size() << " songs." << std::endl;
 
   // create the song distribution list
@@ -268,7 +265,7 @@ int main(int argc, char* argv[])
                 << playlist[j].album << std::endl;
   }
 
-  write_playlist_to_m3u_file(playlist);
+  write_playlist_to_m3u_file(playlist, output_file_name);
 
   return 0;
 }
