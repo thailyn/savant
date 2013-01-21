@@ -314,7 +314,8 @@ int main(int argc, char* argv[])
 
       std::cout << j << ": (" << playlist[j].id << ") (" << stars << ") "
                 << playlist[j].title << " - " << playlist[j].artist << " - "
-                << playlist[j].album << std::endl;
+                << playlist[j].album << " (" << playlist[j].play_count
+                << " play(s))" << std::endl;
   }
 
   write_playlist_to_m3u_file(playlist, output_file_name);
