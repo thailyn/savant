@@ -13,6 +13,33 @@
 
 namespace po = boost::program_options;
 
+//  This should either set global settings or return the settings in an
+// application-specific data structure, instead of returning the
+// variables_map object (all program_options logic should be inside this
+// function).
+po::variables_map parse_command_line(int argc, char* argv[])
+{
+  po::options_description desc("Allowed options");
+  desc.add_options()
+    ("help", "produce help message")
+    ("verbose,v", "print verbose output")
+    ("playlist", po::value<std::string>()->default_value("Library"),
+     "iTunes playlist to pick songs from")
+    ("output,o", po::value<std::string>()->default_value("playlist.m3u"),
+     "output file name");
+
+  po::variables_map vm;
+  po::store(po::parse_command_line(argc, argv, desc), vm);
+  po::notify(vm);
+
+  if (vm.count("help"))
+  {
+    std::cout << desc;
+  }
+
+  return vm;
+}
+
 void write_playlist_to_m3u_file(std::vector<Song> playlist)
 {
   std::string file_name = "playlist.m3u";
