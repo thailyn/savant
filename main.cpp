@@ -23,6 +23,7 @@ po::variables_map parse_command_line(int argc, char* argv[])
   desc.add_options()
     ("help", "produce help message")
     ("verbose,v", "print verbose output")
+    ("input", po::value<std::string>(), "input file name")
     ("playlist", po::value<std::string>()->default_value("Library"),
      "iTunes playlist to pick songs from")
     ("output,o", po::value<std::string>()->default_value("playlist.m3u"),
@@ -61,6 +62,7 @@ void write_playlist_to_m3u_file(std::vector<Song> playlist)
 int main(int argc, char* argv[])
 {
   bool print = false;
+  std::string input_file_name = "";
   std::string iTunes_playlist_name = "";
   std::string output_file_name = "";
 
@@ -87,6 +89,16 @@ int main(int argc, char* argv[])
   {
     std::cout << "Output playlist file name: " << vm["output"].as<std::string>() << std::endl;
     output_file_name = vm["output"].as<std::string>();
+  }
+  if (vm.count("input"))
+  {
+    input_file_name = vm["input"].as<std::string>();
+    std::cout << "Using input file " << input_file_name << std::endl;
+  }
+  else
+  {
+    std::cout << "Error: intput file name must be provided.  Quitting." << std::endl;
+    return 3;
   }
 
   pugi::xml_document doc;
