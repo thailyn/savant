@@ -27,7 +27,9 @@ po::variables_map parse_command_line(int argc, char* argv[])
     ("playlist", po::value<std::string>()->default_value("Library"),
      "iTunes playlist to pick songs from")
     ("output,o", po::value<std::string>()->default_value("playlist.m3u"),
-     "output file name");
+     "output file name")
+    ("rating-weight", po::value<std::string>()->default_value("linear"),
+     "weighting scheme for song rating");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -63,6 +65,7 @@ int main(int argc, char* argv[])
   std::string input_file_name = "";
   std::string iTunes_playlist_name = "";
   std::string output_file_name = "";
+  std::string rating_weight_scheme = "";
 
   po::variables_map vm;
   vm = parse_command_line(argc, argv);
@@ -98,6 +101,17 @@ int main(int argc, char* argv[])
     std::cout << "Error: intput file name must be provided.  Quitting." << std::endl;
     return 3;
   }
+  if (vm.count("rating-weight"))
+  {
+    rating_weight_scheme = vm["rating-weight"].as<std::string>();
+    if (!(rating_weight_scheme == "linear" || rating_weight_scheme == "iTunes"))
+    {
+      std::cout << "Error: invalid rating weighting scheme '" << rating_weight_scheme
+                << "'.  Allowed values are 'linear' and 'iTunes'.  Quitting." << std::endl;
+      return 4;
+    }
+  }
+  std::cout << "Using rating weighting scheme '" << rating_weight_scheme << "'." << std::endl;
 
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file(input_file_name.c_str());
