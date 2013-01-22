@@ -230,6 +230,10 @@ int main(int argc, char* argv[])
 
     if (rating_weight_scheme == "linear")
     {
+      if (skip_unrated_songs && song_rating == 0)
+      {
+        continue;
+      }
       // always include a song once
       song_dist.push_back(selected_playlist.songs[j]);
 
@@ -243,6 +247,11 @@ int main(int argc, char* argv[])
     {
       int include_count = 0;
       int num_stars = song_rating / 20;
+
+      if (skip_unrated_songs && song_rating == 0)
+      {
+        continue;
+      }
 
       switch (num_stars)
       {
