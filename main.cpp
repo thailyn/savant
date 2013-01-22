@@ -30,6 +30,7 @@ po::variables_map parse_command_line(int argc, char* argv[])
      "output file name")
     ("playlist-size,n", po::value<unsigned>()->default_value(25),
      "number of tracks to add to output playlist")
+    ("skip-unrated", "skip tracks without a rating")
     ("rating-weight", po::value<std::string>()->default_value("linear"),
      "weighting scheme for song rating");
 
@@ -64,6 +65,7 @@ void write_playlist_to_m3u_file(std::vector<Song> playlist, std::string file_nam
 int main(int argc, char* argv[])
 {
   bool print = false;
+  bool skip_unrated_songs = false;
   unsigned output_playlist_size = 0;
   std::string input_file_name = "";
   std::string iTunes_playlist_name = "";
@@ -109,6 +111,11 @@ int main(int argc, char* argv[])
     output_playlist_size = vm["playlist-size"].as<unsigned>();
     std::cout << "Output playlist size: " << output_playlist_size << std::endl;
   }
+  if (vm.count("skip-unrated"))
+  {
+    skip_unrated_songs = true;
+  }
+  std::cout << "Skip unrated songs: " << (skip_unrated_songs == true ? "Yes" : "No") << std::endl;
   if (vm.count("rating-weight"))
   {
     rating_weight_scheme = vm["rating-weight"].as<std::string>();
