@@ -242,6 +242,12 @@ int main(int argc, char* argv[])
       {
         continue;
       }
+
+      if (song_rating == 0)
+      {
+        song_rating = unrated_track_rating;
+      }
+
       // always include a song once
       song_dist.push_back(selected_playlist.songs[j]);
 
@@ -254,12 +260,18 @@ int main(int argc, char* argv[])
     else if (rating_weight_scheme == "iTunes")
     {
       int include_count = 0;
-      int num_stars = song_rating / 20;
+      int num_stars;
 
       if (skip_unrated_songs && song_rating == 0)
       {
         continue;
       }
+
+      if (song_rating == 0)
+      {
+        song_rating = unrated_track_rating;
+      }
+      num_stars = song_rating / 20;
 
       switch (num_stars)
       {
